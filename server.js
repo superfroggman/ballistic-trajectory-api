@@ -1,20 +1,26 @@
 var http = require('http');
+const url = require('url');
 
 g = 9.81
 pi = Math.PI
 
 //create a server object:
-http.createServer(function(req, res) {
-    res.write('Hello World!'); //write a response to the client
+http.createServer(function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
 
 
-    speed = 10
 
-    xStart = 0
-    yStart = 0
+    const current_url = new URL("http://cool.com" + req.url)
+    const params = current_url.searchParams
 
-    xEnd = 2
-    yEnd = 1
+    speed = params.get('speed')
+
+
+    xStart = params.get('xStart')
+    yStart = params.get('yStart')
+
+    xEnd = params.get('xEnd')
+    yEnd = params.get('yEnd')
 
     distance = Math.sqrt(Math.pow(xEnd - xStart, 2) + Math.pow(yEnd - yStart, 2))
 
@@ -22,7 +28,17 @@ http.createServer(function(req, res) {
 
     console.log(distance)
 
-    // console.log(req.url)
+    res.write(distance.toString() + "\n")
+    res.write(maxDistance(speed).toString() + "\n")
+
+    aReach = angleOfReach(140, distance)
+    res.write("a1: " + radToDeg(aReach[0]).toString() + "\n")
+    res.write("a2: " + radToDeg(aReach[1]).toString() + "\n")
+
+
+
+
+    console.log(req.url)
     res.end(); //end the response
 }).listen(8080); //the server object listens on port 8080
 
