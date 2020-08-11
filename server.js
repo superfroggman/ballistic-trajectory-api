@@ -1,16 +1,33 @@
 var http = require('http');
 
+g = 9.81
+pi = Math.PI
+
 //create a server object:
 http.createServer(function(req, res) {
     res.write('Hello World!'); //write a response to the client
 
 
-    console.log(req.url)
+    speed = 10
+
+    xStart = 0
+    yStart = 0
+
+    xEnd = 2
+    yEnd = 1
+
+    distance = Math.sqrt(Math.pow(xEnd - xStart, 2) + Math.pow(yEnd - yStart, 2))
+
+    //angle1 = Math.atan((yEnd - yStart) / (xEnd - xStart))
+
+    console.log(distance)
+
+    // console.log(req.url)
     res.end(); //end the response
 }).listen(8080); //the server object listens on port 8080
 
-g = 9.81
-pi = Math.PI
+
+
 
 function maxDistanceOfAngle(speed, angle) {
     return (Math.pow(speed, 2) * Math.sin(2 * degToRad(angle))) / g
@@ -41,12 +58,15 @@ function radToDeg(rad) {
     return rad * (180 / pi)
 }
 
+/*
+spd = 100
+dstt = 500
 
+console.log(maxDistance(spd))
 
-console.log(maxDistance(10))
-
-aReach = angleOfReach(30, 50)
+aReach = angleOfReach(spd, dstt)
 console.log("a1: " + radToDeg(aReach[0]))
 console.log("a2: " + radToDeg(aReach[1]))
 
-console.log(timeOfFlight(30, 50))
+console.log(timeOfFlight(spd, dstt))
+*/
